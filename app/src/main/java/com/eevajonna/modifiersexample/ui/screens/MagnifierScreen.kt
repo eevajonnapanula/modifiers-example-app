@@ -34,24 +34,31 @@ fun Magnifier() {
     } else {
         Box(
             Modifier
+                // Set the source center and styles for the magnifier
                 .magnifier(
                     sourceCenter = { magnifierCenter },
                     zoom = 3f,
-                    style = MagnifierStyle(size = DpSize(height = 200.dp, width = 300.dp)),
+                    style = MagnifierStyle(
+                        size = DpSize(height = 200.dp, width = 300.dp),
+                    ),
                 )
                 .pointerInput(Unit) {
                     detectDragGestures(
                         // Show the magnifier in the initial position
                         onDragStart = { magnifierCenter = it },
                         // Magnifier follows the pointer during a drag event
-                        onDrag = { _, delta -> magnifierCenter = magnifierCenter.plus(delta) },
-                        // Hide the magnifier when a user ends drag movement.
+                        onDrag = { _, delta ->
+                            magnifierCenter = magnifierCenter.plus(delta)
+                        },
+                        // Hide the magnifier when a user ends the drag movement.
                         onDragEnd = { magnifierCenter = Offset.Unspecified },
                         onDragCancel = { magnifierCenter = Offset.Unspecified },
                     )
                 },
         ) {
-            Text("Try magnifying this text by dragging a pointer (finger, mouse, other) over the text.")
+            Text(
+                "Try magnifying this text by dragging a pointer (finger, mouse, other) over the text.",
+            )
         }
     }
 }
